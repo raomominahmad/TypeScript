@@ -1,86 +1,79 @@
-type ChaiOrder = {
-  type: string;
-  sugar: number;
-  strong: boolean;
+interface Chai {
+  flavour: string;
+  price: number;
+  milk?: boolean;
+}
+
+const masala: Chai = {
+  flavour: "masala",
+  price: 30,
 };
 
-function name(order: ChaiOrder) {
-  console.log(order);
+interface Shop {
+  readonly id: number;
+  name: string;
 }
 
-function serveChai(order: ChaiOrder) {
-  console.log(order);
+const s: Shop = { id: 1, name: "Chaicode caffe" };
+
+// s.id= 3 readonly
+
+// function in form of interface
+interface DiscountCalculator {
+  // (parameter) : return type
+  (price: number): number;
 }
 
-type TeaRecipe = {
-  water: number;
-  milk: number;
+const apply50: DiscountCalculator = (p) => p * 0.5;
+
+interface TeaMachine {
+  start(): void;
+  stop(): void;
+}
+
+const machine: TeaMachine = {
+  start() {
+    console.log("start");
+  },
+  stop() {
+    console.log("stop");
+  },
 };
 
-// class masalaChai implements TeaRecipe {
-//   water = 100;
-//   milk = 50;
-// }
+// index signature
+// index signature allows you to define dynamic property names f
+// or an object when you don’t know all the keys in advance.
 
-interface CupSize {
-  size: "small" | "large";
+interface ChaiRating {
+  [flavour: string]: number;
 }
 
-// type CupSize = "small" | "large";
-
-// Classes cannot implement a union type like this.
-// The `implements` keyword only works with object-like types
-// (usually interfaces or object type aliases), not with primitive unions.
-// A primitive union means a union type made from primitive values or primitive types.
-
-class Chai implements CupSize {
-  size: "small" | "large" = "large";
-}
-
-interface Response {
-  ok: true | false;
-}
-
-class myRes implements Response {
-  ok: true | false = true;
-}
-
-// literal type
-
-type TeaType = "masala" | "ginger" | "lemon";
-
-function orderChai(t: TeaType) {
-  console.log(t);
-}
-
-// Intersection
-type BaseChai = { teaLeaves: number };
-
-type Extra = { masala: number };
-
-type MasalaChai = BaseChai & Extra;
-
-const cup: MasalaChai = {
-  teaLeaves: 2,
-  masala: 1,
+const ratings: ChaiRating = {
+  masala: 4.5,
+  ginger: 4.5,
 };
 
-type User = {
-  username: string;
-  bio?: string;
-};
+// all interface properties are merged
 
-const u1: User = { username: "Momin" };
-const u2: User = { username: "mominahmadrao", bio: "Student" };
-
-type Config = {
-  readonly appName: string;
-  version: number;
-};
-
-const cfg : Config = {
-    appName : "ChatApp",
-    version: 3
+interface User {
+  name: string;
 }
 
-// cfg.appName = "AnotherAppName"
+interface User {
+  age: number;
+}
+
+const u: User = {
+  name: "momin",
+  age: 22,
+};
+
+interface A {
+  a: string;
+}
+interface B {
+  b: string;
+}
+
+interface C extends A, B {}
+
