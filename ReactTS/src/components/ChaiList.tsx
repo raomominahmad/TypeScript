@@ -1,0 +1,24 @@
+import ChaiCard from "./ChaiCard"
+import type { Chai } from "../types"
+
+interface ChaiListProps {
+    items : Chai[]
+}
+
+function ChaiList({items} : ChaiListProps) {
+  return (
+    <div>
+      {items.map((chai) =>(
+        <ChaiCard
+        key={chai.id}
+        name= {chai.name}
+        price={chai.price}
+        isSpecial= {chai.price > 30}
+        />
+      ))}
+    </div>
+  )
+  
+}
+
+export default ChaiList
